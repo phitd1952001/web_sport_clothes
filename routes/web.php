@@ -125,6 +125,62 @@ Route::prefix('admin')->group(function(){
         ])->name('product.delete')->middleware('can:product_delete');
     });
 
-    
+    Route::prefix('order')->group(function () {
+        Route::get('/', [
+            AdminOrderController::class, 'index'
+        ])->name('order.index')->middleware('can:order_list');
+        Route::get('/delete/{id}', [
+            AdminOrderController::class, 'delete'
+        ])->name('order.delete')->middleware('can:order_delete');
+        Route::get('/showdetail/{id}', [
+            AdminOrderController::class, 'detail'
+        ])->name('order.detail')->middleware('can:order_see');
+    });
+    Route::prefix('users')->group(function(){
+        Route::get('/', [
+            AdminUserController::class, 'index'
+        ])->name('users.index')->middleware('can:user_list');
+        Route::get('/create', [
+            AdminUserController::class, 'create'
+        ])->name('users.create')->middleware('can:user_add');
+        Route::post('/store', [
+            AdminUserController::class, 'store'
+        ])->name('users.store');
+        Route::get('/edit/{id}', [
+            AdminUserController::class, 'edit'
+        ])->name('users.edit')->middleware('can:user_edit');
+        Route::post('/update/{id}', [
+            AdminUserController::class, 'update'
+        ])->name('users.update');
+        Route::get('/delete/{id}', [
+            AdminUserController::class, 'delete'
+        ])->name('users.delete')->middleware('can:user_delete');
+        
+    });
+    Route::prefix('Roles')->group(function () {
+        Route::get('/', [
+            AdminRolesController::class, 'index'
+        ])->name('roles.index')->middleware('can:role_list');
+        Route::get('/create', [
+            AdminRolesController::class, 'create'
+        ])->name('roles.create')->middleware('can:role_add');
+        Route::post('/store', [
+            AdminRolesController::class, 'store'
+        ])->name('roles.store');
+        Route::get('/edit/{id}', [
+            AdminRolesController::class, 'edit'
+        ])->name('roles.edit')->middleware('can:role_edit');
+        Route::post('/update/{id}', [
+            AdminRolesController::class, 'update'
+        ])->name('roles.update');
+        Route::get('/delete/{id}', [
+            AdminRolesController::class, 'delete'
+        ])->name('roles.delete')->middleware('can:role_delete');
+        
+    });
+    Route::get('Permission',function () {
+        return view('admin.not_permission');
+        
+    })->name('not_permission');
 });
 //end- front-end
