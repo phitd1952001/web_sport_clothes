@@ -182,5 +182,60 @@ Route::prefix('admin')->group(function(){
         return view('admin.not_permission');
         
     })->name('not_permission');
+    Route::get('trangchu',[
+        Fe_Home::class, 'index'
+    ])->name('fe.home');
+    Route::post('search',[
+        Fe_Home::class, 'search'
+    ])->name('search');
+    Route::get('contact',[
+        Fe_Home::class, 'contact'
+    ])->name('contact');
+    
+    Route::prefix('fe')->group(function(){
+        Route::prefix('dmsp')->group(function(){
+            Route::get('/{id}',[
+                CategoryFrontEnd::class,'index'
+            ])->name('categoryfe');
+        });
+        Route::get('chi-tiet-san-pham/{id}',[
+            FrontEndProduct::class,'index'
+        ])->name('detailsp');
+        Route::post('save_cart',[
+            FrontEndCart::class, 'save_cart'
+        ])->name('save_cart');
+        Route::get('show_cart',[
+            FrontEndCart::class, 'show_cart'
+        ])->name('show_cart');
+        Route::get('delete_cart/{rowId}',[
+            FrontEndCart::class, 'delete_cart'
+        ])->name('delete_cart');
+        Route::post('update_cart',[
+            FrontEndCart::class, 'update_cart'
+        ])->name('update_cart');
+        Route::get('checkout',[
+            FrontEndLoginCheckout::class, 'checkout'
+        ])->name('checkout');
+        Route::get('login_checkout',[
+            FrontEndLoginCheckout::class, 'logincheckout'
+        ])->name('login_checkout');
+        Route::post('register',[
+            FrontEndLoginCheckout::class, 'register'
+        ])->name('register_customer');
+        Route::post('login_customer',[
+            FrontEndLoginCheckout::class, 'login'
+        ])->name('login_customer');
+        Route::get('logout_customer',[
+            FrontEndLoginCheckout::class, 'logout'
+        ])->name('logout_customer');
+        Route::post('store_order',[
+            FrontEndLoginCheckout::class, 'store_order'
+        ])->name('store_order');
+        Route::post('order_place',[
+            FrontEndLoginCheckout::class, 'order_place'
+        ])->name('order_place');
+        Route::get('payment',[
+            FrontEndLoginCheckout::class, 'payment'
+        ])->name('payment');
 });
 //end- front-end
